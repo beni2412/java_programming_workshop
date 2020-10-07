@@ -13,6 +13,7 @@ public class TicTacToeGame {
 			computer = 'O';
 		else
 			computer = 'X';
+		showBoard(board);
 	}
 
 	public static char[] creatingBoard() {
@@ -30,5 +31,17 @@ public class TicTacToeGame {
 		return user;
 
 	}
+	
+	public static void showBoard(char[] boardToShow) {
+		for(int i =1;i<boardToShow.length;i++)
+		{
+			System.out.print("("+boardToShow[i]+")");
+			if(i%3==0 && i!=9) {
+				System.out.println(" \n---------");
+			}
+		}
+	}
+	
+	
 
 }
