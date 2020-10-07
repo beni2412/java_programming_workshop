@@ -4,18 +4,21 @@ import java.util.Scanner;
 
 public class TicTacToeGame {
 	public static char[] board;
+	public static char player;
+	public static char computer;
 	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe");
 		board = creatingBoard();
-		char player = chooseLetter();
-		char computer = ' ';
+		player = chooseLetter();
+		computer = ' ';
 		if (player == 'X')
 			computer = 'O';
 		else
 			computer = 'X';
 		showBoard(board);
 		selectIndexToMove();
+		showBoard(board);
 	}
 
 	public static char[] creatingBoard() {
@@ -45,12 +48,13 @@ public class TicTacToeGame {
 	}
 	
 	public static void selectIndexToMove() {
-		System.out.println("Enter index where you want to move: ");
+		System.out.println("\nEnter index where you want to move: ");
 		int index = sc.nextInt();
 		if(index<=9 && index>=1) {
 			if (board[index] == ' ')
 			{
-				System.out.println("Position is free");
+				System.out.println("Position "+index+" is free");
+				makeMove(index);
 			}
 			else
 			{
@@ -62,6 +66,18 @@ public class TicTacToeGame {
 		else
 		{
 			System.out.println("Invalid input, enter again");
+			selectIndexToMove();
+		}
+	}
+	
+	public static void makeMove(int index) {
+		System.out.println("Make this move? Y/N");	
+		char confirm = sc.next().charAt(0);
+		if(confirm=='Y')
+		{
+			board[index] = player;
+		}
+		else {
 			selectIndexToMove();
 		}
 	}
