@@ -125,7 +125,7 @@ public class TicTacToeGame {
 		else
 			return false;
 	}
-	
+
 	public static void computerMove() {
 		boolean moved = false;
 		for (int i = 1; i < board.length; i++) {
@@ -142,6 +142,10 @@ public class TicTacToeGame {
 			}
 		}
 		if(!moved) {
+			moved = blockOpponentMove();
+		}
+		
+		if(!moved) {
 			for (int i = 1; i < board.length; i++) {
 				if(board[i]==' ') {
 					board[i]=computer;
@@ -151,6 +155,25 @@ public class TicTacToeGame {
 		}
 		
 		
+	}
+	
+	public static boolean blockOpponentMove() {
+		boolean moved = false;
+		for (int i = 1; i < board.length; i++) {
+			if(board[i]==' ') {
+				board[i] = player;
+				if(!winState())
+				{
+					board[i] = ' '; 
+				}
+				else {
+					board[i] = computer;
+					moved = true;
+				}
+		
+			}
+		}
+		return moved;
 	}
 
 }
