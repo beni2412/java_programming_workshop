@@ -3,47 +3,54 @@ package com.exam;
 import java.util.Scanner;
 
 public class TicTacToeGame {
+
 	public static char[] board;
 	public static char player;
 	public static char computer;
 	public static Scanner sc = new Scanner(System.in);
+	public static boolean wantToPlayAgain = false;
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to Tic Tac Toe");
-		board = creatingBoard();
-		player = chooseLetter();
-		computer = ' ';
-		if (player == 'X')
-			computer = 'O';
-		else
-			computer = 'X';
-		showBoard(board);
-		int turn = toss();
-		boolean win = false;
-		for (int i = 1; i <= 9; i++) {
-			if (turn == 1) {
-				selectIndexToMove(player);
-				showBoard(board);
-				win = winState();
-				if (win) {
-					System.out.println("Player won the game");
-					break;
-				}
-				turn = 0;
-			} else {
-				computerMove();
-				showBoard(board);
-				win = winState();
-				if (win) {
-					System.out.println("Computer won the game");
-					break;
-				}
-				turn = 1;
-			}
-		}
-		if (!win)
-			System.out.println("Tie Game");
+		do {
+			System.out.println("Welcome to Tic Tac Toe");
+			board = creatingBoard();
+			player = chooseLetter();
+			computer = ' ';
+			if (player == 'X')
+				computer = 'O';
+			else
+				computer = 'X';
 
+			showBoard(board);
+			int turn = toss();
+			boolean win = false;
+			for (int i = 1; i <= 9; i++) {
+				if (turn == 1) {
+					selectIndexToMove(player);
+					showBoard(board);
+					win = winState();
+					if (win) {
+						System.out.println("Player won the game");
+						break;
+					}
+					turn = 0;
+				} else {
+					computerMove();
+					showBoard(board);
+					win = winState();
+					if (win) {
+						System.out.println("Computer won the game");
+						break;
+					}
+					turn = 1;
+				}
+			}
+			if (!win)
+				System.out.println("Tie Game");
+			wantToPlayAgain = playAgain();
+		} while (wantToPlayAgain);
+
+		System.out.println("Bye!!");
 	}
 
 	public static char[] creatingBoard() {
@@ -129,52 +136,87 @@ public class TicTacToeGame {
 	public static void computerMove() {
 		boolean moved = false;
 		for (int i = 1; i < board.length; i++) {
-			if(board[i]==' ') {
+			if (board[i] == ' ') {
 				board[i] = computer;
-				if(!winState())
-				{
-					board[i] = ' '; 
-				}
-				else {
+				if (!winState()) {
+					board[i] = ' ';
+				} else {
 					moved = true;
 					break;
 				}
 			}
 		}
-		if(!moved) {
+		if (!moved) {
 			moved = blockOpponentMove();
 		}
-		
-		if(!moved) {
-			for (int i = 1; i < board.length; i++) {
-				if(board[i]==' ') {
-					board[i]=computer;
-					break;
-				}
-			}
+
+		if (!moved) {
+			moved = cornerMove();
 		}
-		
-		
+
+		if (!moved) {
+			moved = centerOrSidesMove();
+		}
+
 	}
-	
+
 	public static boolean blockOpponentMove() {
 		boolean moved = false;
 		for (int i = 1; i < board.length; i++) {
-			if(board[i]==' ') {
+			if (board[i] == ' ') {
 				board[i] = player;
-				if(!winState())
-				{
-					board[i] = ' '; 
-				}
-				else {
+				if (!winState()) {
+					board[i] = ' ';
+				} else {
 					board[i] = computer;
 					moved = true;
 					break;
 				}
-		
+
 			}
 		}
 		return moved;
 	}
 
+	public static boolean cornerMove() {
+		boolean moved = false;
+		int[] corners = { 1, 3, 7, 9 };
+		for (int i = 0; i < corners.length; i++) {
+			int corner = corners[i];
+			if (board[corner] == ' ') {
+				board[corner] = computer;
+				moved = true;
+				break;
+			}
+
+		}
+		return moved;
+	}
+
+	public static boolean centerOrSidesMove() {
+		boolean moved = false;
+		int[] moves = { 5, 2, 4, 6, 8 };
+		for (int i = 0; i < moves.length; i++) {
+			int move = moves[i];
+			if (board[move] == ' ') {
+				board[move] = computer;
+				moved = true;
+				break;
+			}
+
+		}
+		return moved;
+
+	}
+
+	public static boolean playAgain() {
+		boolean wantToPlayAgain = false;
+		System.out.println("Do you want to play again?  Y/N");
+		char play = sc.next().charAt(0);
+		if (play == 'Y') {
+			wantToPlayAgain = true;
+		}
+		return wantToPlayAgain;
+
+	}
 }
