@@ -184,10 +184,10 @@ public class TicTacToeGame {
 		}
 		return moved;
 	}
-	
+
 	public static boolean centerOrSidesMove() {
 		boolean moved = false;
-		int[] moves = {5, 2, 4, 6, 8};
+		int[] moves = { 5, 2, 4, 6, 8 };
 		for (int i = 0; i < moves.length; i++) {
 			int move = moves[i];
 			if (board[move] == ' ') {
@@ -198,6 +198,6 @@ public class TicTacToeGame {
 
 		}
 		return moved;
-		
+
 	}
 }
