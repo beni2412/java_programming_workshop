@@ -129,51 +129,64 @@ public class TicTacToeGame {
 	public static void computerMove() {
 		boolean moved = false;
 		for (int i = 1; i < board.length; i++) {
-			if(board[i]==' ') {
+			if (board[i] == ' ') {
 				board[i] = computer;
-				if(!winState())
-				{
-					board[i] = ' '; 
-				}
-				else {
+				if (!winState()) {
+					board[i] = ' ';
+				} else {
 					moved = true;
 					break;
 				}
 			}
 		}
-		if(!moved) {
+		if (!moved) {
 			moved = blockOpponentMove();
 		}
-		
-		if(!moved) {
+
+		if (!moved) {
+			moved = cornerMove();
+		}
+
+		if (!moved) {
 			for (int i = 1; i < board.length; i++) {
-				if(board[i]==' ') {
-					board[i]=computer;
+				if (board[i] == ' ') {
+					board[i] = computer;
 					break;
 				}
 			}
 		}
-		
-		
+
 	}
-	
+
 	public static boolean blockOpponentMove() {
 		boolean moved = false;
 		for (int i = 1; i < board.length; i++) {
-			if(board[i]==' ') {
+			if (board[i] == ' ') {
 				board[i] = player;
-				if(!winState())
-				{
-					board[i] = ' '; 
-				}
-				else {
+				if (!winState()) {
+					board[i] = ' ';
+				} else {
 					board[i] = computer;
 					moved = true;
 				}
-		
+
 			}
 		}
 		return moved;
 	}
 
+	public static boolean cornerMove() {
+		boolean moved = false;
+		int[] corners = { 1, 3, 7, 9 };
+		for (int i = 0; i < corners.length; i++) {
+			int corner = corners[i];
+			if (board[corner] == ' ') {
+				board[corner] = computer;
+				moved = true;
+				break;
+			}
+
+		}
+		return moved;
+	}
 }
