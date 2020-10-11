@@ -177,46 +177,4 @@ public class TicTacToeGame {
 		}
 		return moved;
 	}
-
-	public static boolean cornerMove() {
-		boolean moved = false;
-		int[] corners = { 1, 3, 7, 9 };
-		for (int i = 0; i < corners.length; i++) {
-			int corner = corners[i];
-			if (board[corner] == ' ') {
-				board[corner] = computer;
-				moved = true;
-				break;
-			}
-
-		}
-		return moved;
-	}
-
-	public static boolean centerOrSidesMove() {
-		boolean moved = false;
-		int[] moves = { 5, 2, 4, 6, 8 };
-		for (int i = 0; i < moves.length; i++) {
-			int move = moves[i];
-			if (board[move] == ' ') {
-				board[move] = computer;
-				moved = true;
-				break;
-			}
-
-		}
-		return moved;
-
-	}
-
-	public static boolean playAgain() {
-		boolean wantToPlayAgain = false;
-		System.out.println("Do you want to play again?  Y/N");
-		char play = sc.next().charAt(0);
-		if (play == 'Y') {
-			wantToPlayAgain = true;
-		}
-		return wantToPlayAgain;
-
-	}
 }
