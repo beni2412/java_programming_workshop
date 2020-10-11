@@ -3,47 +3,54 @@ package com.exam;
 import java.util.Scanner;
 
 public class TicTacToeGame {
+
 	public static char[] board;
 	public static char player;
 	public static char computer;
 	public static Scanner sc = new Scanner(System.in);
+	public static boolean wantToPlayAgain = false;
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to Tic Tac Toe");
-		board = creatingBoard();
-		player = chooseLetter();
-		computer = ' ';
-		if (player == 'X')
-			computer = 'O';
-		else
-			computer = 'X';
-		showBoard(board);
-		int turn = toss();
-		boolean win = false;
-		for (int i = 1; i <= 9; i++) {
-			if (turn == 1) {
-				selectIndexToMove(player);
-				showBoard(board);
-				win = winState();
-				if (win) {
-					System.out.println("Player won the game");
-					break;
-				}
-				turn = 0;
-			} else {
-				computerMove();
-				showBoard(board);
-				win = winState();
-				if (win) {
-					System.out.println("Computer won the game");
-					break;
-				}
-				turn = 1;
-			}
-		}
-		if (!win)
-			System.out.println("Tie Game");
+		do {
+			System.out.println("Welcome to Tic Tac Toe");
+			board = creatingBoard();
+			player = chooseLetter();
+			computer = ' ';
+			if (player == 'X')
+				computer = 'O';
+			else
+				computer = 'X';
 
+			showBoard(board);
+			int turn = toss();
+			boolean win = false;
+			for (int i = 1; i <= 9; i++) {
+				if (turn == 1) {
+					selectIndexToMove(player);
+					showBoard(board);
+					win = winState();
+					if (win) {
+						System.out.println("Player won the game");
+						break;
+					}
+					turn = 0;
+				} else {
+					computerMove();
+					showBoard(board);
+					win = winState();
+					if (win) {
+						System.out.println("Computer won the game");
+						break;
+					}
+					turn = 1;
+				}
+			}
+			if (!win)
+				System.out.println("Tie Game");
+			wantToPlayAgain = playAgain();
+		} while (wantToPlayAgain);
+
+		System.out.println("Bye!!");
 	}
 
 	public static char[] creatingBoard() {
@@ -163,6 +170,7 @@ public class TicTacToeGame {
 				} else {
 					board[i] = computer;
 					moved = true;
+					break;
 				}
 
 			}
@@ -198,6 +206,17 @@ public class TicTacToeGame {
 
 		}
 		return moved;
+
+	}
+
+	public static boolean playAgain() {
+		boolean wantToPlayAgain = false;
+		System.out.println("Do you want to play again?  Y/N");
+		char play = sc.next().charAt(0);
+		if (play == 'Y') {
+			wantToPlayAgain = true;
+		}
+		return wantToPlayAgain;
 
 	}
 }
