@@ -31,7 +31,7 @@ public class TicTacToeGame {
 				}
 				turn = 0;
 			} else {
-				selectIndexToMove(computer);
+				computerMove();
 				showBoard(board);
 				win = winState();
 				if (win) {
@@ -41,9 +41,8 @@ public class TicTacToeGame {
 				turn = 1;
 			}
 		}
-		if(!win)
+		if (!win)
 			System.out.println("Tie Game");
-		
 
 	}
 
@@ -125,6 +124,33 @@ public class TicTacToeGame {
 			return true;
 		else
 			return false;
+	}
+	
+	public static void computerMove() {
+		boolean moved = false;
+		for (int i = 1; i < board.length; i++) {
+			if(board[i]==' ') {
+				board[i] = computer;
+				if(!winState())
+				{
+					board[i] = ' '; 
+				}
+				else {
+					moved = true;
+					break;
+				}
+			}
+		}
+		if(!moved) {
+			for (int i = 1; i < board.length; i++) {
+				if(board[i]==' ') {
+					board[i]=computer;
+					break;
+				}
+			}
+		}
+		
+		
 	}
 
 }
