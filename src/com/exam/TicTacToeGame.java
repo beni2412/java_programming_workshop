@@ -169,6 +169,7 @@ public class TicTacToeGame {
 				else {
 					board[i] = computer;
 					moved = true;
+					break;
 				}
 		
 			}
